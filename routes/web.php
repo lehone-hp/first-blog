@@ -14,3 +14,24 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/*Admin Routes*/
+Route::get('/admin', function () {
+    return view('welcome');
+});
+
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+});
+
+Route::get('/admin/post', function () {
+    return view('admin.posts');
+});
+
+Route::get('/admin/post/new', function () {
+    return view('admin.newpost');
+});
+
+Route::get('/admin/comment', function () {
+    return view('admin.comment');
+});

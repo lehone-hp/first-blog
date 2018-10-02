@@ -373,3 +373,22 @@ body.sidebar-toggled footer.sticky-footer {
     width: calc(100% - 90px);
   }
 }
+
+.form-group #post-title:focus {
+  box-shadow: none;
+}
+
+.form-group #post-title {
+  font-size: 50px;
+  padding: 5px;
+  border-left: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: 2px solid #c0c0c0;
+  border-radius: 0px;
+  height: 60px;
+}
+
+.card .card-header {
+  font-size: 24px;
+}
