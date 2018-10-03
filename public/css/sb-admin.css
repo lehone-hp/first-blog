@@ -392,3 +392,7 @@ body.sidebar-toggled footer.sticky-footer {
 .card .card-header {
   font-size: 24px;
 }
+
+.user-form {
+  margin-left: 0px;
+}
