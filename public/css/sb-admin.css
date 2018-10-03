@@ -374,7 +374,8 @@ body.sidebar-toggled footer.sticky-footer {
   }
 }
 
-.form-group #post-title:focus {
+.form-group #post-title:focus,
+.invalid-field:focus {
   box-shadow: none;
 }
 
@@ -395,4 +396,13 @@ body.sidebar-toggled footer.sticky-footer {
 
 .user-form {
   margin-left: 0px;
+}
+
+.invalid-field {
+  border: 1px solid red;
+}
+
+.invalid-field:focus {
+  box-shadow: none;
+  border-color: red;
 }

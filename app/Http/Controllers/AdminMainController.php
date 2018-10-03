@@ -11,6 +11,10 @@ namespace App\Http\Controllers;
 
 class AdminMainController extends Controller {
 
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function get() {
         return view('admin.dashboard');
     }
