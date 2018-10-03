@@ -48,46 +48,50 @@
                     </tr>
                     </tfoot>
                     <tbody>
+                    @foreach ($users as $user)
                     <tr>
-                        <td>1</td>
-                        <td>Lenya Hope Nembi</td>
-                        <td>lehone</td>
-                        <td>lehone4hope@gmail.com</td>
+                        <td>{{ $loop->index + 1 }}</td>
+                        <td>{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</td>
+                        <td>{{ $user->username }}</td>
+                        <td>{{ $user->email }}</td>
                         <td>
-                            <i class="fa fa-check text-primary"></i> OR
-                            <i class="fa fa-times text-danger"></i>
+                            @if($user->email_verified_at = null)
+                                <i class="fa fa-check text-primary"></i>
+                            @endif{{ $user->email_verified_at }}
                         </td>
-                        <td>03/09/2018</td>
+                        <td>{{ $user->created_at }}</td>
                         <td>
                             <div class="btn-group">
                                 <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-user-edit"></i></a> &nbsp;
-                                <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmUserDeleteModal"><i class="fa fa-trash"></i></a>
+                                <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmUserDeleteModal{{$user->id}}"><i class="fa fa-trash"></i></a>
                             </div>
                         </td>
                     </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-@endsection
-
-<!-- Logout Modal-->
-<div class="modal fade" id="confirmUserDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirm User Delete?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Delete" below if you really want to delete this user.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger" href="#">Delete</a>
+    <!-- Logout Modal-->
+    @foreach ($users as $user)
+        <div class="modal fade" id="confirmUserDeleteModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirm User Delete?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Delete" to confirm deletion of user <strong>{{ $user->username }}</strong>.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-danger" href="#">Delete</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    @endforeach
+@endsection

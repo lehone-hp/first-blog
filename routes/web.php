@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
 /*Admin Routes*/
 Route::get('/admin', 'AdminMainController@get');
 
@@ -29,3 +31,6 @@ Route::get('/admin/comment', 'CommentController@get');
 Route::get('/admin/user', 'UserController@get');
 
 Route::get('/admin/user/new', 'UserController@getNew');
+Route::post('/admin/user/new', 'UserController@createUser');
+
+Route::get('/home', 'HomeController@index')->name('home');
