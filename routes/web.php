@@ -16,22 +16,16 @@ Route::get('/', function () {
 });
 
 /*Admin Routes*/
-Route::get('/admin', function () {
-    return view('welcome');
-});
+Route::get('/admin', 'AdminMainController@get');
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-});
+Route::get('/admin/dashboard', 'AdminMainController@get');
 
-Route::get('/admin/post', function () {
-    return view('admin.posts');
-});
+Route::get('/admin/post', 'PostController@get');
 
-Route::get('/admin/post/new', function () {
-    return view('admin.newpost');
-});
+Route::get('/admin/post/new', 'PostController@getNew');
 
-Route::get('/admin/comment', function () {
-    return view('admin.comment');
-});
+Route::get('/admin/comment', 'CommentController@get');
+
+Route::get('/admin/user', 'UserController@get');
+
+Route::get('/admin/user/new', 'UserController@getNew');

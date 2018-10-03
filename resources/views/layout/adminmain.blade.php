@@ -107,17 +107,17 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ url('admin/post') }}">
-                <i class="fas fa-fw fa-edit"></i>
+                <i class="fas fa-fw fa-file-alt"></i>
                 <span>Posts</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ url('admin/comment') }}">
-                <i class="fas fa-fw fa-comment"></i>
+                <i class="fas fa-fw fa-comments"></i>
                 <span>Comments</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-fw fa-user"></i>
+            <a class="nav-link" href="{{ url('admin/user') }}">
+                <i class="fas fa-fw fa-user-friends"></i>
                 <span>Users</span></a>
         </li>
     </ul>
