@@ -50,7 +50,7 @@
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $post->title }}</td>
-                            <td>admin</td>
+                            <td>{{ $post->user->username }}</td>
                             <td>{{ $post->created_at }}</td>
                             <td>{{ $post->updated_at }}</td>
                             <td>

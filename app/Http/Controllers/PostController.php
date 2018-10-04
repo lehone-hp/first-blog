@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller {
@@ -42,9 +43,11 @@ class PostController extends Controller {
                     ->withErrors($validate)
                     ->withInput();
             } else {
+                // get Authenticated user and add as composer of this post
                 $newPost = new Post;
                 $newPost->title = $data['title'];
                 $newPost->content = $data['content'];
+                $newPost->user_id = Auth::id();
                 $newPost->save();
 
                 // redirect to contact form with success message
