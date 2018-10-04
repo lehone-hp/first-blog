@@ -38,8 +38,6 @@ class UserController extends Controller {
     public function createUser(Request $request) {
         $data = $request->all();
 
-        echo "<pre>";
-
         // validate the submitted form data
         $validate = Validator::make($data, [
             'first_name' => 'required|string|max:50',

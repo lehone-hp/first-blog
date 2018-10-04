@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('/admin/logout', 'Auth\LoginController@logout');
 
 /*Admin Routes*/
 Route::get('/admin', 'AdminMainController@get');
@@ -25,6 +26,7 @@ Route::get('/admin/dashboard', 'AdminMainController@get');
 Route::get('/admin/post', 'PostController@get');
 
 Route::get('/admin/post/new', 'PostController@getNew');
+Route::post('/admin/post/new', 'PostController@createPost');
 
 Route::get('/admin/comment', 'CommentController@get');
 

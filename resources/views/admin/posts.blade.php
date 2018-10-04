@@ -29,9 +29,9 @@
                     <tr>
                         <th>S/N</th>
                         <th>Title</th>
-                        <th>Content</th>
-                        <th>Created</th>
                         <th>Written by</th>
+                        <th>Created</th>
+                        <th>Last Update</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -39,49 +39,56 @@
                     <tr>
                         <th>S/N</th>
                         <th>Title</th>
-                        <th>Content</th>
-                        <th>Created</th>
                         <th>Written by</th>
+                        <th>Created</th>
+                        <th>Last Update</th>
                         <th></th>
                     </tr>
                     </tfoot>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>My Trip to Australia</td>
-                        <td>In publishing and graphic design, lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document without relying on meaningful content. Replacing the actual content with placeholder text allows designers to desig</td>
-                        <td>2009/09/15</td>
-                        <td>admin</td>
-                        <td>
-                            <div class="btn-group">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a> &nbsp;
-                                <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmPostDeleteModal"><i class="fa fa-trash"></i></a>
-                            </div>
-                        </td>
-                    </tr>
+                    @foreach ($posts as $post)
+                        <tr>
+                            <td>{{ $loop->index + 1 }}</td>
+                            <td>{{ $post->title }}</td>
+                            <td>admin</td>
+                            <td>{{ $post->created_at }}</td>
+                            <td>{{ $post->updated_at }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a> &nbsp;
+                                    <a href="#" class="btn btn-danger btn-sm" data-toggle="modal"
+                                       data-target="#confirmPostDeleteModal{{$post->id}}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-@endsection
-
-<!-- Logout Modal-->
-<div class="modal fade" id="confirmPostDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirm Post Delete?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Delete" below if you really want to delete this post.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger" href="#">Delete</a>
+    <!-- Delete Confirmation Modal-->
+    @foreach ($posts as $post)
+        <div class="modal fade" id="confirmPostDeleteModal{{$post->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirm Post Delete?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Delete <strong>{{$post->title}}</strong> ?</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-danger" href="#">Delete</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    @endforeach
+@endsection
+
