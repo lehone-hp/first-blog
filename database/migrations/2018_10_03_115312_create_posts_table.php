@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('content');
+            $table->boolean('voided');
             $table->timestamps();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')

@@ -4,6 +4,13 @@
 
 @section('content')
 
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ session('success') }}
+        </div>
+    @endif
+
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -84,7 +91,7 @@
                     <div class="modal-body">Delete <strong>{{$post->title}}</strong> ?</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-danger" href="#">Delete</a>
+                        <a class="btn btn-danger" href="{{ url('/admin/post/delete/'.$post->id) }}">Delete</a>
                     </div>
                 </div>
             </div>

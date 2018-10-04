@@ -25,6 +25,11 @@ Route::get('/admin/dashboard', 'AdminMainController@get');
 
 Route::get('/admin/post', 'PostController@get');
 
+Route::get('/admin/post/edit/{id}', 'PostController@getEdit');
+Route::post('/admin/post/edit/{id}', 'PostController@updatePost');
+
+Route::get('/admin/post/delete/{id}', 'PostController@voidPost');
+
 Route::get('/admin/post/new', 'PostController@getNew');
 Route::post('/admin/post/new', 'PostController@createPost');
 

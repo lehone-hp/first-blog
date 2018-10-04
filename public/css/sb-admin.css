@@ -406,3 +406,7 @@ body.sidebar-toggled footer.sticky-footer {
   box-shadow: none;
   border-color: red;
 }
+
+.btn-cancel {
+  float: right
+}

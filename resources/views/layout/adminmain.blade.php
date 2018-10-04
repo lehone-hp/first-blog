@@ -24,7 +24,8 @@
     <script>
         tinymce.init({
             selector: '#post-content',
-            menubar: false
+            menubar: false,
+            height: 220
         });
     </script>
 
