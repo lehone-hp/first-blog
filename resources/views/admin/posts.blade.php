@@ -1,4 +1,4 @@
-@extends('layout.adminmain')
+@extends('layouts.adminmain')
 
 @section('title', 'Admin - Posts')
 
@@ -36,6 +36,7 @@
                     <tr>
                         <th>S/N</th>
                         <th>Title</th>
+                        <th>Subtitle</th>
                         <th>Written by</th>
                         <th>Created</th>
                         <th>Last Update</th>
@@ -46,6 +47,7 @@
                     <tr>
                         <th>S/N</th>
                         <th>Title</th>
+                        <th>Subtitle</th>
                         <th>Written by</th>
                         <th>Created</th>
                         <th>Last Update</th>
@@ -57,12 +59,13 @@
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $post->title }}</td>
+                            <td>{{ $post->subtitle }}</td>
                             <td>{{ $post->user->username }}</td>
                             <td>{{ $post->created_at }}</td>
                             <td>{{ $post->updated_at }}</td>
                             <td>
                                 <div class="btn-group">
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a> &nbsp;
+                                    <a href="{{ url('/admin/post/edit/'.$post->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a> &nbsp;
                                     <a href="#" class="btn btn-danger btn-sm" data-toggle="modal"
                                        data-target="#confirmPostDeleteModal{{$post->id}}">
                                         <i class="fa fa-trash"></i>

@@ -1,4 +1,4 @@
-@extends('layout.adminmain')
+@extends('layouts.adminmain')
 
 @section('title', 'Admin - New Post')
 
@@ -26,7 +26,6 @@
             <br>
             <form action="{{ url('/admin/post/edit/'.$post->id) }}" method="post">
                 @csrf
-
                 <div class="form-group">
                     <input type="text" class="form-control" id="post-title"
                            name="title"
@@ -35,6 +34,17 @@
                     @if ($errors->has('title'))
                         <span class="text-danger">
                             {{ $errors->first('title') }}
+                        </span>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="post-subtitle"
+                           name="subtitle"
+                           value="{{ old('subtitle', $post->subtitle) }}"
+                           placeholder="Sub title">
+                    @if ($errors->has('subtitle'))
+                        <span class="text-danger">
+                            {{ $errors->first('subtitle') }}
                         </span>
                     @endif
                 </div>

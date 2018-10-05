@@ -37,6 +37,7 @@ class PostController extends Controller {
         // validate the submitted form data
         $validate = Validator::make($data, [
             'title' => 'required|string|max:100',
+            'subtitle' => 'nullable|max:100',
             'content' => 'required',
         ]);
 
@@ -48,6 +49,7 @@ class PostController extends Controller {
             // get Authenticated user and add as composer of this post
             $newPost = new Post;
             $newPost->title = $data['title'];
+            $newPost->subtitle = $data['subtitle'];
             $newPost->content = $data['content'];
             $newPost->voided = false;
             $newPost->user_id = Auth::id();
@@ -72,6 +74,7 @@ class PostController extends Controller {
         // validate the submitted form data
         $validate = Validator::make($data, [
             'title' => 'required|string|max:100',
+            'subtitle' => 'nullable|max:100',
             'content' => 'required',
         ]);
 
@@ -83,6 +86,7 @@ class PostController extends Controller {
             // get Authenticated user and add as composer of this post
             $newPost = Post::find($id);
             $newPost->title = $data['title'];
+            $newPost->subtitle = $data['subtitle'];
             $newPost->content = $data['content'];
             $newPost->update();
 

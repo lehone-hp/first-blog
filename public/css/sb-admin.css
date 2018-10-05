@@ -375,6 +375,7 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 .form-group #post-title:focus,
+.form-group #post-subtitle:focus,
 .invalid-field:focus {
   box-shadow: none;
 }
@@ -388,6 +389,17 @@ body.sidebar-toggled footer.sticky-footer {
   border-bottom: 2px solid #c0c0c0;
   border-radius: 0px;
   height: 60px;
+}
+
+.form-group #post-subtitle {
+  font-size: 17px;
+  padding: 5px;
+  border-left: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: 2px solid #c0c0c0;
+  border-radius: 0px;
+  height: 30px;
 }
 
 .card .card-header {

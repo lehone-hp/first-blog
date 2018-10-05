@@ -1,4 +1,4 @@
-@extends('layout.adminmain')
+@extends('layouts.adminmain')
 
 @section('title', 'Admin - New Post')
 
@@ -44,6 +44,19 @@
                         </span>
                     @endif
                 </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="post-subtitle"
+                           name="subtitle"
+                           value="{{ old('subtitle') }}"
+                           placeholder="Sub title">
+                    @if ($errors->has('subtitle'))
+                        <span class="text-danger">
+                            {{ $errors->first('subtitle') }}
+                        </span>
+                    @endif
+                </div>
+
                 <div class="form-group">
                     <textarea class="form-control" id="post-content"
                               name="content">

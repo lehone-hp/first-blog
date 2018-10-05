@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/about', 'HomeController@about');
+Route::get('/post/{id}', 'HomeController@post');
+Route::get('/contact', 'HomeController@contact');
 
 Auth::routes();
 Route::get('/admin/logout', 'Auth\LoginController@logout');
@@ -39,5 +40,3 @@ Route::get('/admin/user', 'UserController@get');
 
 Route::get('/admin/user/new', 'UserController@getNew');
 Route::post('/admin/user/new', 'UserController@createUser');
-
-Route::get('/home', 'HomeController@index')->name('home');
