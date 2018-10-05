@@ -1,23 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url({{ asset('img/home-bg.jpg') }})">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>First Blog</h1>
+                        <span class="subheading">Small study project in laravel by lehone :-)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                @foreach($posts as $post)
+                    <div class="post-preview">
+                        <a href="{{ url('/post/'.$post->id) }}">
+                            <h2 class="post-title">
+                                {{ $post->title }}
+                            </h2>
+                            <h3 class="post-subtitle">
+                                {{ $post->subtitle }}
+                            </h3>
+                        </a>
+                        <p class="post-meta">Posted by
+                            <a href="#">{{ $post->user->username }}</a>
+                            {{ Carbon\Carbon::parse($post->created_at)->format('F d, Y') }}</p>
+                    </div>
+                    <hr>
+                @endforeach
+                <!-- Pager -->
+                <div class="clearfix">
+                    <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

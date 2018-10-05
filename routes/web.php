@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/about', 'HomeController@about');
+Route::get('/post/{id}', 'HomeController@post');
+Route::get('/contact', 'HomeController@contact');
 
 Auth::routes();
 Route::get('/admin/logout', 'Auth\LoginController@logout');
@@ -25,6 +26,11 @@ Route::get('/admin/dashboard', 'AdminMainController@get');
 
 Route::get('/admin/post', 'PostController@get');
 
+Route::get('/admin/post/edit/{id}', 'PostController@getEdit');
+Route::post('/admin/post/edit/{id}', 'PostController@updatePost');
+
+Route::get('/admin/post/delete/{id}', 'PostController@voidPost');
+
 Route::get('/admin/post/new', 'PostController@getNew');
 Route::post('/admin/post/new', 'PostController@createPost');
 
@@ -34,5 +40,3 @@ Route::get('/admin/user', 'UserController@get');
 
 Route::get('/admin/user/new', 'UserController@getNew');
 Route::post('/admin/user/new', 'UserController@createUser');
-
-Route::get('/home', 'HomeController@index')->name('home');

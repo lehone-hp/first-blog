@@ -1,4 +1,4 @@
-@extends('layout.adminmain')
+@extends('layouts.adminmain')
 
 @section('title', 'Admin - New User')
 
