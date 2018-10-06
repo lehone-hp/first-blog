@@ -40,7 +40,7 @@
                                        name="first_name"
                                        value="{{ old('first_name') }}"
                                        placeholder="First name" autofocus="autofocus">
-                                <label for="firstName">First name</label>
+                                <label for="firstName">First name <span class="text-danger">*</span></label>
                                 @if ($errors->has('first_name'))
                                     <span class="text-danger">
                                         {{ $errors->first('first_name') }}
@@ -70,7 +70,7 @@
                                        name="last_name"
                                        value="{{ old('last_name') }}"
                                        placeholder="Last name" required="required">
-                                <label for="lastName">Last name</label>
+                                <label for="lastName">Last name <span class="text-danger">*</span></label>
                                 @if ($errors->has('last_name'))
                                     <span class="text-danger">
                                         {{ $errors->first('last_name') }}
@@ -81,17 +81,36 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="form-label-group">
-                        <input type="name" id="username" class="form-control {{ $errors->has('username') ? 'invalid-field' : '' }}"
-                               name="username"
-                               value="{{ old('username') }}"
-                               placeholder="Username" required="required">
-                        <label for="username">Username</label>
-                        @if ($errors->has('username'))
-                            <span class="text-danger">
+                    <div class="form-row">
+                        <div class="col-md-8">
+                            <div class="form-label-group">
+                                <input type="name" id="username" class="form-control {{ $errors->has('username') ? 'invalid-field' : '' }}"
+                                       name="username"
+                                       value="{{ old('username') }}"
+                                       placeholder="Username" required="required">
+                                <label for="username">Username <span class="text-danger">*</span></label>
+                                @if ($errors->has('username'))
+                                    <span class="text-danger">
                                 {{ $errors->first('username') }}
                             </span>
-                        @endif
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-label-group">
+                                <select id="role" class="form-control {{ $errors->has('role') ? 'invalid-field' : '' }}"
+                                        name="role">
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->id }}" {{ $role->id == old('role') ? 'selected' : '' }}>{{ $role->role }}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('role'))
+                                    <span class="text-danger">
+                                {{ $errors->first('role') }}
+                            </span>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -101,7 +120,7 @@
                                name="email"
                                value="{{ old('email') }}"
                                placeholder="Email address" required="required">
-                        <label for="inputEmail">Email address</label>
+                        <label for="inputEmail">Email address <span class="text-danger">*</span></label>
                         @if ($errors->has('email'))
                             <span class="text-danger">
                                 {{ $errors->first('email') }}
@@ -117,7 +136,7 @@
                                 <input type="password" id="inputPassword" class="form-control {{ $errors->has('password') ? 'invalid-field' : '' }}"
                                        name="password"
                                        placeholder="Password" required="required">
-                                <label for="inputPassword">Password</label>
+                                <label for="inputPassword">Password <span class="text-danger">*</span></label>
                                 @if ($errors->has('password'))
                                     <span class="text-danger">
                                         {{ $errors->first('password') }}

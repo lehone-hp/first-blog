@@ -9,8 +9,10 @@
 namespace App\Http\Controllers;
 
 
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -24,7 +26,8 @@ class UserController extends Controller {
 
     public function get() {
         $users = User::all();
-        return view('admin.user', ['users' => $users]);
+        $authUser = Auth::user();
+        return view('admin.user', ['users' => $users, 'authUser' => $authUser]);
     }
 
     /**
@@ -32,7 +35,17 @@ class UserController extends Controller {
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getNew() {
-        return view('admin.newUser');
+        // get logged in user
+        $user = Auth::user();
+
+        // Check if the current user is a Member and whether he wrote the post
+        if ($user->role->role == 'Member') {
+            \Illuminate\Support\Facades\Request::session()->flash('error', 'Sorry! you do not have permission to create a new user');
+            return redirect('/admin/user');
+        }
+
+        $roles = Role::orderBy('role', 'desc')->get();
+        return view('admin.newUser', ['roles' => $roles]);
     }
 
     public function createUser(Request $request) {
@@ -46,6 +59,7 @@ class UserController extends Controller {
             'username' => 'required|string|max:50|min:4',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'role' => 'required',
         ]);
 
         if ($validate->fails()) {
@@ -59,6 +73,7 @@ class UserController extends Controller {
             $newUser->last_name = $data['last_name'];
             $newUser->username = $data['username'];
             $newUser->email = $data['email'];
+            $newUser->role_id = $data['role'];
             $newUser->password = Hash::make($data['password']);
             $newUser->save();
 

@@ -292,6 +292,7 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 }
 
 .form-label-group > input,
+.form-label-group > select,
 .form-label-group > label {
   padding: var(--input-padding-y) var(--input-padding-x);
   height: auto;

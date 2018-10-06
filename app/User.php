@@ -31,8 +31,14 @@ class User extends Authenticatable
     /**
      * Get the posts for the blog post.
      */
-    public function posts()
-    {
+    public function posts() {
         return $this->hasMany('App\Post');
+    }
+
+    /**
+     * Get the user's Role
+     */
+    public function role() {
+        return $this->belongsTo('App\Role');
     }
 }

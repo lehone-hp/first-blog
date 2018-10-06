@@ -23,9 +23,9 @@
 
     <!-- Post Content -->
     <article>
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
-                <div class="mx-auto">
+                <div class="col-lg-8 col-md-10 mx-auto">
                     {!!html_entity_decode($post->content)!!}
                 </div>
             </div>

@@ -4,6 +4,13 @@
 
 @section('content')
 
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ session('error') }}
+        </div>
+    @endif
+
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -18,9 +25,11 @@
             <i class="fas fa-user-friends"></i>
             System Users
 
+            @if( $authUser->role->role == 'Admin')
             <div style="float: right">
                 <a href="{{ url('/admin/user/new') }}" class="btn btn-primary"><span class="fa fa-user-plus"></span> New User</a>
             </div>
+            @endif
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -31,7 +40,7 @@
                         <th>Full Name</th>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Verified</th>
+                        <th>Role</th>
                         <th>Created</th>
                         <th></th>
                     </tr>
@@ -42,7 +51,7 @@
                         <th>Full Name</th>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Verified</th>
+                        <th>Role</th>
                         <th>Created</th>
                         <th></th>
                     </tr>
@@ -54,17 +63,15 @@
                         <td>{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</td>
                         <td>{{ $user->username }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>
-                            @if($user->email_verified_at = null)
-                                <i class="fa fa-check text-primary"></i>
-                            @endif{{ $user->email_verified_at }}
-                        </td>
+                        <td>{{ $user->role->role }}</td>
                         <td>{{ $user->created_at }}</td>
                         <td>
-                            <div class="btn-group">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-user-edit"></i></a> &nbsp;
-                                <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmUserDeleteModal{{$user->id}}"><i class="fa fa-trash"></i></a>
-                            </div>
+                            @if( $authUser->role->role == 'Admin')
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-user-edit"></i></a> &nbsp;
+                                    <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmUserDeleteModal{{$user->id}}"><i class="fa fa-trash"></i></a>
+                                </div>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

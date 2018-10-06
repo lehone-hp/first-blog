@@ -21,9 +21,21 @@ class PostController extends Controller {
     }
 
     public function get() {
-        $posts = Post::where('voided', false)
-                            ->orderBy('created_at', 'desc')
-                            ->get();
+        // get logged in user
+        $user = Auth::user();
+
+        // display only posts belonging to current user if he/she is not an Admin
+        if ($user->role->role == 'Admin') {
+            $posts = Post::where('voided', false)
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } else {
+            $posts = Post::where('voided', false)
+                ->where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+        }
         return view('admin.posts', ['posts' => $posts]);
     }
 
@@ -53,6 +65,7 @@ class PostController extends Controller {
             $newPost->content = $data['content'];
             $newPost->voided = false;
             $newPost->user_id = Auth::id();
+            $newPost->last_edit_by = Auth::user()->username;
             $newPost->save();
 
             // redirect to contact form with success message
@@ -65,6 +78,16 @@ class PostController extends Controller {
 
     public function getEdit($id) {
         $post = Post::find($id);
+
+        // get logged in user
+        $user = Auth::user();
+
+        // Check if the current user is a Member and whether he wrote the post
+        if ($user->role->role == 'Member' && $post->user_id != Auth::id()) {
+            \Illuminate\Support\Facades\Request::session()->flash('error', 'Sorry! you do not have permission to edit this post');
+            return redirect('/admin/post');
+        }
+
         return view('admin.editPost', ['post' => $post]);
     }
 
@@ -88,6 +111,7 @@ class PostController extends Controller {
             $newPost->title = $data['title'];
             $newPost->subtitle = $data['subtitle'];
             $newPost->content = $data['content'];
+            $newPost->last_edit_by = Auth::user()->username;
             $newPost->update();
 
             // redirect to contact form with success message
@@ -100,13 +124,23 @@ class PostController extends Controller {
 
     public function voidPost($id) {
         $post = Post::find($id);
+
+        // get logged in user
+        $user = Auth::user();
+
+        // Check if the current user is a Member and whether he wrote the post
+        if ($user->role->role == 'Member' && $post->user_id != Auth::id()) {
+            \Illuminate\Support\Facades\Request::session()->flash('error', 'Sorry! you do not have permission to delete this post');
+            return redirect('/admin/post');
+        }
+
         $post->voided = true;
         $post->update();
 
         // redirect to contact form with success message
         $success = 'Post successfully deleted!';
 
-        //\Illuminate\Support\Facades\Request::session()->flash('success', $success);
+        \Illuminate\Support\Facades\Request::session()->flash('success', $success);
         return redirect('/admin/post');
     }
 }

@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('subtitle')->nullable();
             $table->text('content');
+            $table->text('last_edit_by');
             $table->boolean('voided');
             $table->timestamps();
             $table->unsignedInteger('user_id');

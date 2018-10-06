@@ -10,6 +10,12 @@
             {{ session('success') }}
         </div>
     @endif
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ session('error') }}
+        </div>
+    @endif
 
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
@@ -38,8 +44,8 @@
                         <th>Title</th>
                         <th>Subtitle</th>
                         <th>Written by</th>
-                        <th>Created</th>
                         <th>Last Update</th>
+                        <th>Created</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -49,8 +55,8 @@
                         <th>Title</th>
                         <th>Subtitle</th>
                         <th>Written by</th>
-                        <th>Created</th>
                         <th>Last Update</th>
+                        <th>Created</th>
                         <th></th>
                     </tr>
                     </tfoot>
@@ -61,8 +67,8 @@
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->subtitle }}</td>
                             <td>{{ $post->user->username }}</td>
+                            <td>{{ $post->last_edit_by }}</td>
                             <td>{{ $post->created_at }}</td>
-                            <td>{{ $post->updated_at }}</td>
                             <td>
                                 <div class="btn-group">
                                     <a href="{{ url('/admin/post/edit/'.$post->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a> &nbsp;
