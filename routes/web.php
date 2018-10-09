@@ -37,6 +37,9 @@ Route::post('/admin/post/new', 'PostController@createPost');
 Route::get('/admin/comment', 'CommentController@get');
 
 Route::get('/admin/user', 'UserController@get');
+Route::get('/admin/useradd', 'UserController@addUserTest');
 
 Route::get('/admin/user/new', 'UserController@getNew');
 Route::post('/admin/user/new', 'UserController@createUser');
+
+Route::get('/admin/user/delete/{id}', 'UserController@voidUser');

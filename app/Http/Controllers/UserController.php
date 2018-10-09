@@ -25,7 +25,7 @@ class UserController extends Controller {
     */
 
     public function get() {
-        $users = User::all();
+        $users = User::where('voided', false)->get();
         $authUser = Auth::user();
         return view('admin.user', ['users' => $users, 'authUser' => $authUser]);
     }
@@ -48,6 +48,11 @@ class UserController extends Controller {
         return view('admin.newUser', ['roles' => $roles]);
     }
 
+    /**
+     * Create a new User
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function createUser(Request $request) {
         $data = $request->all();
 
@@ -74,14 +79,47 @@ class UserController extends Controller {
             $newUser->username = $data['username'];
             $newUser->email = $data['email'];
             $newUser->role_id = $data['role'];
+            $newUser->voided = false;
             $newUser->password = Hash::make($data['password']);
             $newUser->save();
 
             // redirect to contact form with success message
-            $success = 'User: ' .$data['username']. ', has been successfully created!';
+            $success = 'User: ' . $data['username'] . ', has been successfully created!';
 
             $request->session()->flash('success', $success);
             return redirect('/admin/user/new');
         }
+    }
+
+    /**
+     * Void an existing User
+     */
+    public function voidUser($id) {
+        $user = User::find($id);
+
+        // get logged in user
+        $loggedUser = Auth::user();
+
+        // Check if the current logged in user is an admin
+        if ($loggedUser->role->role == 'Member') {
+            \Illuminate\Support\Facades\Request::session()->flash('error', 'Sorry! you do not have permission to delete this user');
+            return redirect('/admin/user');
+        }
+
+        $user->voided = true;
+        $user->password = "";
+        $user->update();
+
+        // redirect to contact form with success message
+        $success = 'Post successfully deleted!';
+
+        \Illuminate\Support\Facades\Request::session()->flash('success', $success);
+        return redirect('/admin/user');
+
+    }
+
+    public function addUserTest() {
+        $roles = Role::orderBy('role', 'desc')->get();
+        return view('admin.newUser', ['roles' => $roles]);
     }
 }

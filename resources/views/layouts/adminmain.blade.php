@@ -84,7 +84,9 @@
                 <i class="fas fa-user-circle fa-fw"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">{{ Illuminate\Support\Facades\Auth::user()->username }}</a>
+                @if(Illuminate\Support\Facades\Auth::user() != null)
+                    <a class="dropdown-item" href="#">{{ Illuminate\Support\Facades\Auth::user()->username }}</a>
+                @endif
                 <a class="dropdown-item" href="#">Activity Log</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ url('/admin/logout') }}">Logout</a>
@@ -126,6 +128,19 @@
     <div id="content-wrapper">
 
         <div class="container-fluid">
+
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('error') }}
+                </div>
+            @endif
 
             @yield('content')
 
