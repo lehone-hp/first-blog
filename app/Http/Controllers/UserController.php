@@ -118,6 +118,25 @@ class UserController extends Controller {
 
     }
 
+    /**
+     * Render form to edit user's profile
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getEdit($id) {
+        $user = User::find($id);
+
+        // get logged in user
+        $loggedUser = Auth::user();
+
+        // Check if the current logged in user is the same as that of the account to be edited
+        if ($loggedUser->id != $user->id) {
+            \Illuminate\Support\Facades\Request::session()->flash('error', 'Sorry! you do not have permission to edit this account');
+            return redirect('/admin/user');
+        }
+
+        return view('admin.editProfile', ['user' => $user]);
+    }
+
     public function addUserTest() {
         $roles = Role::orderBy('role', 'desc')->get();
         return view('admin.newUser', ['roles' => $roles]);

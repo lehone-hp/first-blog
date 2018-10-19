@@ -42,4 +42,6 @@ Route::get('/admin/useradd', 'UserController@addUserTest');
 Route::get('/admin/user/new', 'UserController@getNew');
 Route::post('/admin/user/new', 'UserController@createUser');
 
+Route::get('/admin/user/edit/{id}', 'UserController@getEdit');
+
 Route::get('/admin/user/delete/{id}', 'UserController@voidUser');

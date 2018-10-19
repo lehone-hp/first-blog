@@ -85,7 +85,9 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 @if(Illuminate\Support\Facades\Auth::user() != null)
-                    <a class="dropdown-item" href="#">{{ Illuminate\Support\Facades\Auth::user()->username }}</a>
+                    <a class="dropdown-item" href="{{ url('/admin/user/edit/'.Illuminate\Support\Facades\Auth::user()->id) }}">
+                        {{ Illuminate\Support\Facades\Auth::user()->username }}
+                    </a>
                 @endif
                 <a class="dropdown-item" href="#">Activity Log</a>
                 <div class="dropdown-divider"></div>
